@@ -1,0 +1,40 @@
+server:
+  port: 1565
+
+spring:
+  application:
+    name: implement stripe payment
+
+
+
+#  datasource:
+#    url:
+##    driver-class-name: com.mysql.jdbc.Driver
+#    username:
+#    password:
+#    hikari:
+#      maximum-pool-size: 10
+#      connection-timeout: 10000
+
+
+  stripe:
+    pk: ${stripe-pk}
+    sk: ${stripe-sk}
+    price-id: ${stripe-price-id}
+    early-bird-price-id: ${stripe-early-bird-price-id}
+    webhook-secret: ${stripe-webhook-secret}
+    successURL: ${application.domain.name}/checkout/success?session_id={CHECKOUT_SESSION_ID}
+    cancelURL: ${application.domain.name}/checkout/cancel
+
+
+  payment:
+    subscription-limits:
+      earlyBirdLimit: ${early-bird-limit}
+      earlyBirdPrice: ${early-bird-price}
+      usualPrice: ${usual-price}
+      pageLimitTrial: ${page-count-trial}
+      pageLimitSubscribed: ${page-count-premium}
+      trialDocCount: ${trial-doc-count}
+      subscribedDocCount: ${subscribed-doc-count}
+    cron:
+      reset-subscriptions: "0 50 23 L * *"
